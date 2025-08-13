@@ -1,0 +1,1250 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HireByte - Your Internship Gateway</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #111827;
+            /* Dark background */
+            color: #d1d5db;
+            /* Light gray text */
+        }
+
+        .modal-backdrop {
+            background-color: rgba(0, 0, 0, 0.7);
+        }
+
+        .form-input {
+            background-color: #1f2937;
+            border-color: #374151;
+            color: #d1d5db;
+        }
+
+        .form-input:focus {
+            background-color: #374151;
+            border-color: #4f46e5;
+            outline: none;
+            box-shadow: none;
+        }
+
+        .btn-primary {
+            background-color: #4f46e5;
+            color: white;
+            transition: background-color 0.3s;
+        }
+
+        .btn-primary:hover {
+            background-color: #4338ca;
+        }
+
+        .card {
+            background-color: #1f2937;
+            border: 1px solid #374151;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgba(79, 70, 229, 0.2), 0 4px 6px -2px rgba(79, 70, 229, 0.1);
+        }
+
+        .project-card {
+            background-color: #1f2937;
+            border: 1px solid #374151;
+            transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s;
+        }
+
+        .project-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 0 20px rgba(79, 70, 229, 0.3);
+            border-color: #4f46e5;
+        }
+
+        .nav-link {
+            position: relative;
+            transition: color 0.3s;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -4px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #4f46e5;
+            transition: width 0.3s;
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        .feature-item {
+            transition: transform 0.3s, background-color 0.3s;
+        }
+
+        .feature-item:hover {
+            transform: scale(1.03);
+            background-color: rgba(79, 70, 229, 0.1);
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        @keyframes fadeInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-50px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes fadeInRight {
+            from {
+                opacity: 0;
+                transform: translateX(50px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .animate-fade-in-left {
+            animation: fadeInLeft 1s ease forwards;
+        }
+
+        .animate-fade-in-right {
+            animation: fadeInRight 1s ease forwards;
+        }
+
+        /* For smooth scrolling */
+        html {
+            scroll-behavior: smooth;
+        }
+    </style>
+</head>
+
+<body class="antialiased">
+
+    <!-- App Container -->
+    <div id="app" class="min-h-screen flex flex-col">
+
+        <!-- Header / Navbar -->
+        <header class="bg-gray-900/80 backdrop-blur-sm sticky top-0 z-40 shadow-md shadow-indigo-500/10">
+            <nav class="container mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex items-center justify-between h-16">
+                    <div class="flex items-center">
+                        <a href="./index.html" class="flex-shrink-0 text-white text-2xl font-bold flex items-center">
+                            <i data-lucide="briefcase" class="mr-2 text-indigo-400"></i>
+                            HireByte
+                        </a>
+                        <div class="hidden md:block">
+                            <div id="main-nav-links" class="ml-10 flex items-baseline space-x-4">
+                                <a href="#internships"
+                                    class="nav-link text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Internships</a>
+                                <a href="#features"
+                                    class="nav-link text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Features</a>
+                                <a href="#projects"
+                                    class="nav-link text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Projects</a>
+                                <a href="#success-stories"
+                                    class="nav-link text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Success
+                                    Stories</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="hidden md:block">
+                        <div id="auth-buttons" class="flex items-center space-x-4">
+                            <button id="login-btn"
+                                class="text-gray-300 bg-transparent hover:bg-indigo-500 hover:text-white font-medium py-2 px-4 border border-indigo-500 rounded-lg transition-all duration-300">Login</button>
+                            <button id="register-btn"
+                                class="btn-primary font-medium py-2 px-4 rounded-lg">Register</button>
+                        </div>
+                        <div id="user-dashboard" class="hidden items-center space-x-4">
+                            <span id="user-email" class="text-sm font-medium text-gray-300"></span>
+                            <a id="dashboard-link" href="#"
+                                class="text-gray-300 hover:text-white text-sm font-medium">Dashboard</a>
+                            <button id="logout-btn"
+                                class="btn-primary text-sm font-medium py-2 px-3 rounded-lg">Logout</button>
+                        </div>
+                    </div>
+                    <div class="-mr-2 flex md:hidden">
+                        <button id="mobile-menu-button" type="button"
+                            class="bg-gray-800 inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white">
+                            <span class="sr-only">Open main menu</span>
+                            <i data-lucide="menu" class="block h-6 w-6"></i>
+                        </button>
+                    </div>
+                </div>
+            </nav>
+            <!-- Mobile menu, show/hide based on menu state. -->
+            <div id="mobile-menu" class="md:hidden hidden">
+                <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+                    <a href="#internships"
+                        class="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Internships</a>
+                    <a href="#features"
+                        class="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Features</a>
+                    <a href="#projects"
+                        class="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Projects</a>
+                    <a href="#success-stories"
+                        class="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Success
+                        Stories</a>
+                </div>
+                <div class="pt-4 pb-3 border-t border-gray-700">
+                    <div id="mobile-auth-buttons" class="flex flex-col items-start space-y-2 px-2">
+                        <button id="mobile-login-btn"
+                            class="w-full text-left text-gray-300 bg-transparent hover:bg-indigo-500 hover:text-white font-medium py-2 px-3 border border-indigo-500 rounded-lg transition-all duration-300">Login</button>
+                        <button id="mobile-register-btn"
+                            class="w-full text-left btn-primary font-medium py-2 px-3 rounded-lg">Register</button>
+                    </div>
+                    <div id="mobile-user-dashboard" class="hidden items-start flex-col space-y-2 px-2">
+                        <span id="mobile-user-email" class="text-base font-medium text-gray-300 px-3 py-2"></span>
+                        <a id="mobile-dashboard-link" href="#"
+                            class="w-full text-left text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Dashboard</a>
+                        <button id="mobile-logout-btn"
+                            class="w-full text-left btn-primary font-medium py-2 px-3 rounded-lg">Logout</button>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="flex-grow">
+            <section id="hero" class="relative bg-gray-900 py-16 sm:py-24 overflow-hidden">
+                <div class="container mx-auto px-4 sm:px-6 lg:px-8 flex flex-col lg:flex-row items-center gap-12">
+                     <!-- Right: Hero Text -->
+                    <div class="lg:w-1/2 text-center lg:text-left animate-fade-in-right">
+                        <h1
+                            class="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-white tracking-tight leading-tight">
+                            Find Your <span class="text-indigo-400">Dream Internship</span> Today
+                        </h1>
+                        <p class="mt-4 max-w-xl text-lg text-gray-400">
+                            HireByte connects talented students with innovative companies for internships, projects, and
+                            skill-building courses.
+                        </p>
+                        <div class="mt-8 flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
+                            <button id="browse-internships-cta"
+                                class="bg-indigo-500 hover:bg-indigo-600 text-white text-lg font-semibold py-3 px-8 rounded-lg shadow-lg transition-transform transform hover:scale-105">
+                                Browse Internships
+                            </button>
+                            <a href="job-portal.html" id="post-job-cta"
+                                class="bg-gray-700 hover:bg-gray-600 text-white text-lg font-semibold py-3 px-8 rounded-lg shadow-lg transition-transform transform hover:scale-105">
+                                Post a Job
+                            </a>
+                        </div>
+                    </div>
+                    <!-- Left: Image with floating glow effects -->
+                    <div class="lg:w-1/2 relative animate-fade-in-left">
+                        <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/80ead950-f181-49d5-bc44-6b394734835a.png"
+                            alt="HireByte platform interface showing students collaborating on projects and companies reviewing applications"
+                            class="rounded-lg shadow-xl transform transition-transform duration-700 hover:scale-105">
+
+                        <!-- Decorative glowing blobs -->
+                        <div class="absolute -bottom-6 -left-6 w-24 h-24 bg-indigo-500/20 rounded-full blur-xl"></div>
+                        <div class="absolute -top-6 -right-6 w-32 h-32 bg-purple-500/20 rounded-full blur-xl"></div>
+                    </div>
+
+                   
+                </div>
+            </section>
+
+           <!-- Stats Section -->
+<section id="stats" class="bg-gray-900/50 py-12">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+        <h2 class="text-3xl font-bold text-white mb-8 text-center">Why Choose HireByte?</h2>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
+            <div class="p-6">
+                <i data-lucide="users" class="w-12 h-12 text-indigo-400 mx-auto mb-4"></i>
+                <h3 class="text-4xl font-extrabold text-white counter" data-target="1000">0+</h3>
+                <p class="text-gray-400 mt-2">Students Placed</p>
+            </div>
+            <div class="p-6">
+                <i data-lucide="building-2" class="w-12 h-12 text-indigo-400 mx-auto mb-4"></i>
+                <h3 class="text-4xl font-extrabold text-white counter" data-target="200">0+</h3>
+                <p class="text-gray-400 mt-2">Partner Companies</p>
+            </div>
+            <div class="p-6">
+                <i data-lucide="smile" class="w-12 h-12 text-indigo-400 mx-auto mb-4"></i>
+                <h3 class="text-4xl font-extrabold text-white counter" data-target="90">0+</h3>
+                <p class="text-gray-400 mt-2">Satisfaction Rate (%)</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+            <!-- Content sections -->
+            <div id="content-area" class="container mx-auto px-4 sm:px-6 lg:px-8 py-8">
+                <!-- Features Section -->
+                <section id="features" class="py-12">
+                    <h2 class="text-3xl font-bold text-white mb-12 text-center">Platform Features</h2>
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+                        <!-- Student Features -->
+                        <div class="bg-gray-800/50 p-8 rounded-lg">
+                            <h3 class="text-2xl font-semibold text-indigo-400 mb-6 text-center">For Students &
+                                Candidates</h3>
+                            <ul class="space-y-4">
+                                <li class="flex items-start feature-item p-4 rounded-lg">
+                                    <i data-lucide="user-round-cog"
+                                        class="w-6 h-6 text-indigo-400 mr-4 mt-1 flex-shrink-0"></i>
+                                    <div>
+                                        <h4 class="font-semibold">Profile Builder</h4>
+                                        <p class="text-gray-400 text-sm">Create detailed profiles with education,
+                                            skills, projects, and portfolios.</p>
+                                    </div>
+                                </li>
+                                <li class="flex items-start feature-item p-4 rounded-lg">
+                                    <i data-lucide="bot" class="w-6 h-6 text-indigo-400 mr-4 mt-1 flex-shrink-0"></i>
+                                    <div>
+                                        <h4 class="font-semibold">AI Resume Builder</h4>
+                                        <p class="text-gray-400 text-sm">Generates optimized resumes and cover letters
+                                            to stand out.</p>
+                                    </div>
+                                </li>
+                                <li class="flex items-start feature-item p-4 rounded-lg">
+                                    <i data-lucide="search-check"
+                                        class="w-6 h-6 text-indigo-400 mr-4 mt-1 flex-shrink-0"></i>
+                                    <div>
+                                        <h4 class="font-semibold">Advanced Job Search</h4>
+                                        <p class="text-gray-400 text-sm">Powerful filters for location, industry,
+                                            stipend, and more.</p>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                        <!-- Employer Features -->
+                        <div class="bg-gray-800/50 p-8 rounded-lg">
+                            <h3 class="text-2xl font-semibold text-teal-400 mb-6 text-center">For Employers & Recruiters
+                            </h3>
+                            <ul class="space-y-4">
+                                <li class="flex items-start feature-item p-4 rounded-lg">
+                                    <i data-lucide="building" class="w-6 h-6 text-teal-400 mr-4 mt-1 flex-shrink-0"></i>
+                                    <div>
+                                        <h4 class="font-semibold">Company Profile Page</h4>
+                                        <p class="text-gray-400 text-sm">Showcase your brand, culture, and benefits to
+                                            attract top talent.</p>
+                                    </div>
+                                </li>
+                                <li class="flex items-start feature-item p-4 rounded-lg">
+                                    <i data-lucide="file-plus-2"
+                                        class="w-6 h-6 text-teal-400 mr-4 mt-1 flex-shrink-0"></i>
+                                    <div>
+                                        <h4 class="font-semibold">Post Internships & Jobs</h4>
+                                        <p class="text-gray-400 text-sm">Easily create listings with role descriptions
+                                            and skill requirements.</p>
+                                    </div>
+                                </li>
+                                <li class="flex items-start feature-item p-4 rounded-lg">
+                                    <i data-lucide="users-round"
+                                        class="w-6 h-6 text-teal-400 mr-4 mt-1 flex-shrink-0"></i>
+                                    <div>
+                                        <h4 class="font-semibold">Candidate Search & Management</h4>
+                                        <p class="text-gray-400 text-sm">Filter candidates and manage applications from
+                                            a single dashboard.</p>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <!-- Common Features -->
+                    <div class="mt-12 bg-gray-800/50 p-8 rounded-lg">
+                        <h3 class="text-2xl font-semibold text-white mb-6 text-center">Core Features for All Users</h3>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+                            <div class="flex items-center feature-item p-4 rounded-lg">
+                                <i data-lucide="brain-circuit" class="w-8 h-8 text-indigo-400 mr-4 flex-shrink-0"></i>
+                                <div>
+                                    <h4 class="font-semibold">Smart Recommendations</h4>
+                                    <p class="text-gray-400 text-sm">AI-powered job and candidate suggestions.</p>
+                                </div>
+                            </div>
+                            <div class="flex items-center feature-item p-4 rounded-lg">
+                                <i data-lucide="message-circle" class="w-8 h-8 text-indigo-400 mr-4 flex-shrink-0"></i>
+                                <div>
+                                    <h4 class="font-semibold">Direct Messaging</h4>
+                                    <p class="text-gray-400 text-sm">Seamless communication between parties.</p>
+                                </div>
+                            </div>
+                            <div class="flex items-center feature-item p-4 rounded-lg">
+                                <i data-lucide="bell-ring" class="w-8 h-8 text-indigo-400 mr-4 flex-shrink-0"></i>
+                                <div>
+                                    <h4 class="font-semibold">Instant Notifications</h4>
+                                    <p class="text-gray-400 text-sm">Email, SMS, and in-app alerts for updates.</p>
+                                </div>
+                            </div>
+                            <div class="flex items-center feature-item p-4 rounded-lg">
+                                <i data-lucide="smartphone" class="w-8 h-8 text-indigo-400 mr-4 flex-shrink-0"></i>
+                                <div>
+                                    <h4 class="font-semibold">Mobile App Support</h4>
+                                    <p class="text-gray-400 text-sm">Access HireByte on the go.</p>
+                                </div>
+                            </div>
+                            <div class="flex items-center feature-item p-4 rounded-lg">
+                                <i data-lucide="credit-card" class="w-8 h-8 text-indigo-400 mr-4 flex-shrink-0"></i>
+                                <div>
+                                    <h4 class="font-semibold">Payment Gateway</h4>
+                                    <p class="text-gray-400 text-sm">For premium listings and services.</p>
+                                </div>
+                            </div>
+                            <div class="flex items-center feature-item p-4 rounded-lg">
+                                <i data-lucide="shield-check" class="w-8 h-8 text-indigo-400 mr-4 flex-shrink-0"></i>
+                                <div>
+                                    <h4 class="font-semibold">Data Privacy & Security</h4>
+                                    <p class="text-gray-400 text-sm">Your data is safe with us.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- How It Works Section -->
+                <section id="how-it-works"
+                    class="py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto bg-gradient-to-b from-gray-900/50 to-transparent">
+                    <div class="text-center mb-16">
+                        <h2 class="text-3xl font-bold mb-4">How HireByte Works</h2>
+                        <p class="text-gray-400 max-w-2xl mx-auto">
+                            Our simple 4-step process makes finding and completing internships seamless for students.
+                        </p>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                        <div class="text-center">
+                            <div
+                                class="bg-indigo-500/10 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4 text-indigo-400 font-bold text-2xl">
+                                1</div>
+                            <h3 class="text-xl font-semibold mb-3">Create Profile</h3>
+                            <p class="text-gray-400">
+                                Build your professional profile showcasing your skills, education, and aspirations.
+                            </p>
+                        </div>
+
+                        <div class="text-center">
+                            <div
+                                class="bg-purple-500/10 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4 text-purple-400 font-bold text-2xl">
+                                2</div>
+                            <h3 class="text-xl font-semibold mb-3">Match with Internships</h3>
+                            <p class="text-gray-400">
+                                Our algorithm matches you with suitable internships based on your profile.
+                            </p>
+                        </div>
+
+                        <div class="text-center">
+                            <div
+                                class="bg-indigo-500/10 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4 text-indigo-400 font-bold text-2xl">
+                                3</div>
+                            <h3 class="text-xl font-semibold mb-3">Complete Projects</h3>
+                            <p class="text-gray-400">
+                                Work on real-world projects with guidance from expert mentors.
+                            </p>
+                        </div>
+
+                        <div class="text-center">
+                            <div
+                                class="bg-purple-500/10 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4 text-purple-400 font-bold text-2xl">
+                                4</div>
+                            <h3 class="text-xl font-semibold mb-3">Get Certified</h3>
+                            <p class="text-gray-400">
+                                Earn certificates and recommendations to boost your career prospects.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="mt-16 bg-gray-800/50 rounded-xl p-8 border border-gray-700">
+                        <div class="flex flex-col lg:flex-row items-center">
+                            <div class="lg:w-1/2 mb-8 lg:mb-0 lg:pr-8">
+                                <h3 class="text-2xl font-bold mb-4">Ready to start your internship journey?</h3>
+                                <p class="text-gray-400 mb-6">
+                                    Join thousands of students who have kickstarted their careers through HireByte's
+                                    internship programs.
+                                </p>
+                                <button id="cta-login-btn"
+                                    class="btn-gradient text-white px-8 py-3 rounded-full text-sm font-medium">
+                                    Find Your Internship
+                                </button>
+                            </div>
+                            <div class="lg:w-1/2">
+                                <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/172a477b-e98a-4452-923b-3cd09f90af1a.png"
+                                    alt="Diverse group of happy students celebrating successful internship completion with certificates"
+                                    class="rounded-lg">
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Courses Section -->
+                <section id="courses" class="py-12">
+                    <h2 class="text-3xl font-bold text-white mb-8 text-center">Skill-up Courses</h2>
+                    <div id="course-list" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+                        <div class="card rounded-lg overflow-hidden flex flex-col">
+                            <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/cad159b3-6175-4dbe-93fa-0e9ad3c2a9fb.png"
+                                alt="Software engineering students working collaboratively on laptops with code visible"
+                                class="w-full h-48 object-cover">
+                            <div class="p-6 flex-grow flex flex-col">
+                                <h3 class="text-xl font-bold text-white">Software Development</h3>
+                                <p class="text-gray-400 text-sm mt-2 flex-grow">Learn to build robust applications from
+                                    scratch with our comprehensive software development courses.</p>
+                                <a href="./courses.html"
+                                    class="w-full btn-primary text-center py-2 rounded-md font-semibold mt-4">Explore</a>
+                            </div>
+                        </div>
+                        <div class="card rounded-lg overflow-hidden flex flex-col">
+                            <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/2d97d144-2706-4115-81c5-4caff11c82e4.png"
+                                alt="Data science team analyzing complex visualizations on large screens"
+                                class="w-full h-48 object-cover">
+                            <div class="p-6 flex-grow flex flex-col">
+                                <h3 class="text-xl font-bold text-white">Data Structures & Algo</h3>
+                                <p class="text-gray-400 text-sm mt-2 flex-grow">Master the fundamentals of DSA to excel
+                                    in technical interviews and build efficient software.</p>
+                                <a href="./courses.html"
+                                    class="w-full btn-primary text-center py-2 rounded-md font-semibold mt-4">Explore</a>
+                            </div>
+                        </div>
+                        <div class="card rounded-lg overflow-hidden flex flex-col">
+                            <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/3a7dd028-1e40-4efe-825f-7d38c14b6df6.png"
+                                alt="Creative marketing team brainstorming campaign ideas in bright office"
+                                class="w-full h-48 object-cover">
+                            <div class="p-6 flex-grow flex flex-col">
+                                <h3 class="text-xl font-bold text-white">Data Science</h3>
+                                <p class="text-gray-400 text-sm mt-2 flex-grow">Dive into the world of data, machine
+                                    learning, and AI to uncover valuable insights.</p>
+                                <a href="./courses.html"
+                                    class="w-full btn-primary text-center py-2 rounded-md font-semibold mt-4">Explore</a>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Real Life Projects Section -->
+                <section id="projects" class="py-12">
+                    <h2 class="text-3xl font-bold text-white mb-8 text-center">Build Real-life Projects</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                        <div class="project-card rounded-lg p-6 text-center flex flex-col items-center">
+                            <div class="bg-gray-800 rounded-full p-4 mb-4">
+                                <i data-lucide="shopping-cart" class="w-10 h-10 text-indigo-400"></i>
+                            </div>
+                            <h3 class="text-xl font-bold text-white">E-commerce Website</h3>
+                            <p class="text-gray-400 text-sm mt-2 flex-grow">Develop a full-featured online store with a
+                                product catalog, shopping cart, and payment integration.</p>
+                            <a href="./projects.html"
+                                class="mt-4 text-indigo-400 font-semibold hover:text-indigo-300">Learn More &rarr;</a>
+                        </div>
+                        <div class="project-card rounded-lg p-6 text-center flex flex-col items-center">
+                            <div class="bg-gray-800 rounded-full p-4 mb-4">
+                                <i data-lucide="line-chart" class="w-10 h-10 text-indigo-400"></i>
+                            </div>
+                            <h3 class="text-xl font-bold text-white">Stock Market Analyzer</h3>
+                            <p class="text-gray-400 text-sm mt-2 flex-grow">Build a data-driven dashboard to track stock
+                                prices, visualize trends, and analyze market data using APIs.</p>
+                            <a href="./projects.html"
+                                class="mt-4 text-indigo-400 font-semibold hover:text-indigo-300">Learn More &rarr;</a>
+                        </div>
+                        <div class="project-card rounded-lg p-6 text-center flex flex-col items-center">
+                            <div class="bg-gray-800 rounded-full p-4 mb-4">
+                                <i data-lucide="message-square" class="w-10 h-10 text-indigo-400"></i>
+                            </div>
+                            <h3 class="text-xl font-bold text-white">Real-time Chat App</h3>
+                            <p class="text-gray-400 text-sm mt-2 flex-grow">Create a responsive chat application with
+                                real-time messaging, user authentication, and multiple chat rooms.</p>
+                            <a href="./projects.html"
+                                class="mt-4 text-indigo-400 font-semibold hover:text-indigo-300">Learn More &rarr;</a>
+                        </div>
+                    </div>
+                    <div class="text-center mt-12">
+                        <a href="./projects.html" class="btn-primary text-lg font-semibold py-3 px-8 rounded-lg">See
+                            More Projects</a>
+                    </div>
+                </section>
+
+                <!-- Success Stories Section -->
+                <section id="success-stories" class="py-12">
+                    <h2 class="text-3xl font-bold text-white mb-8 text-center">Success Stories</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                        <div class="card p-6">
+                            <div class="flex items-center mb-4">
+                                <img src="https://placehold.co/100x100/4338ca/ffffff?text=AP" alt="User Photo"
+                                    class="w-12 h-12 rounded-full mr-4">
+                                <div>
+                                    <h4 class="font-bold text-white">Aarav Patel</h4>
+                                    <p class="text-sm text-indigo-300">Software Engineer Intern @ TechCorp</p>
+                                </div>
+                            </div>
+                            <blockquote class="text-gray-400 italic">"HireByte helped me land my dream internship! The
+                                platform is so easy to use and the quality of listings is top-notch."</blockquote>
+                        </div>
+                        <div class="card p-6">
+                            <div class="flex items-center mb-4">
+                                <img src="https://placehold.co/100x100/16a34a/ffffff?text=PS" alt="User Photo"
+                                    class="w-12 h-12 rounded-full mr-4">
+                                <div>
+                                    <h4 class="font-bold text-white">Priya Sharma</h4>
+                                    <p class="text-sm text-indigo-300">Data Science Intern @ DataMinds</p>
+                                </div>
+                            </div>
+                            <blockquote class="text-gray-400 italic">"I was able to skill up with the courses on
+                                HireByte and then found an amazing data science internship within weeks."</blockquote>
+                        </div>
+                        <div class="card p-6">
+                            <div class="flex items-center mb-4">
+                                <img src="https://placehold.co/100x100/be123c/ffffff?text=RK" alt="User Photo"
+                                    class="w-12 h-12 rounded-full mr-4">
+                                <div>
+                                    <h4 class="font-bold text-white">Rohan Kumar</h4>
+                                    <p class="text-sm text-indigo-300">UX Design Intern @ CreativeFlow</p>
+                                </div>
+                            </div>
+                            <blockquote class="text-gray-400 italic">"As a design student, finding relevant
+                                opportunities was tough. HireByte connected me with a startup that valued my skills."
+                            </blockquote>
+                        </div>
+                    </div>
+                </section>
+            </div>
+
+        </main>
+        <!-- Features Section -->
+        <section id="features"
+            class="py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto bg-gradient-to-b from-gray-900/50 to-transparent">
+
+            <h2 class="text-3xl font-bold text-white mb-8 text-center">Perks & benefits</h2>
+
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="card p-8">
+                    <div class="feature-icon">
+                        <i class="fas fa-laptop-code text-2xl text-indigo-400"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3">Hands-on Projects</h3>
+                    <p class="text-gray-400">
+                        Work on real-world projects that build your portfolio and give you practical experience.
+                    </p>
+                </div>
+
+                <div class="card p-8">
+                    <div class="feature-icon">
+                        <i class="fas fa-chalkboard-teacher text-2xl text-purple-400"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3">Expert Mentors</h3>
+                    <p class="text-gray-400">
+                        Learn from industry professionals who provide guidance and feedback throughout your internship.
+                    </p>
+                </div>
+
+                <div class="card p-8">
+                    <div class="feature-icon">
+                        <i class="fas fa-certificate text-2xl text-indigo-400"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3">Certifications</h3>
+                    <p class="text-gray-400">
+                        Earn recognized certifications upon completion to boost your resume and credibility.
+                    </p>
+                </div>
+
+                <div class="card p-8">
+                    <div class="feature-icon">
+                        <i class="fas fa-network-wired text-2xl text-purple-400"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3">Industry Network</h3>
+                    <p class="text-gray-400">
+                        Connect with professionals and companies that can lead to future job opportunities.
+                    </p>
+                </div>
+
+                <div class="card p-8">
+                    <div class="feature-icon">
+                        <i class="fas fa-user-tie text-2xl text-indigo-400"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3">Career Services</h3>
+                    <p class="text-gray-400">
+                        Get resume reviews, interview coaching, and career advice from our dedicated team.
+                    </p>
+                </div>
+
+                <div class="card p-8">
+                    <div class="feature-icon">
+                        <i class="fas fa-briefcase text-2xl text-purple-400"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3">Job Matching</h3>
+                    <p class="text-gray-400">
+                        Our smart algorithm matches your skills with the perfect internship opportunities.
+                    </p>
+                </div>
+            </div>
+        </section>
+         <!-- Contact Section -->
+    <section id="contact" class="py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+            <div>
+                <h2 class="text-3xl font-bold mb-6">Get In Touch</h2>
+                <p class="text-gray-400 mb-8 max-w-lg">
+                    Have questions about our internship programs or want to partner with HireByte? Reach out to our team.
+                </p>
+                
+                <div class="space-y-6">
+                    <div class="flex items-start">
+                        <div class="bg-indigo-500/10 p-3 rounded-lg mr-4 text-indigo-400">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-semibold mb-1">Email Us</h4>
+                            <p class="text-gray-400">info@hirebyte.com</p>
+                        </div>
+                    </div>
+                    
+                    <div class="flex items-start">
+                        <div class="bg-purple-500/10 p-3 rounded-lg mr-4 text-purple-400">
+                            <i class="fas fa-phone-alt"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-semibold mb-1">Call Us</h4>
+                            <p class="text-gray-400">(91+) 8797331934</p>
+                        </div>
+                    </div>
+                    
+                    <div class="flex items-start">
+                        <div class="bg-amber-500/10 p-3 rounded-lg mr-4 text-amber-400">
+                            <i class="fas fa-map-marker-alt"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-semibold mb-1">Visit Us</h4>
+                            <p class="text-gray-400">Bangalor, India</p>
+                        </div>
+                    </div>
+                </div>
+                
+               <div class="mt-8 flex space-x-4">
+                    <a href="#" class="bg-gray-700 hover:bg-gray-600 w-10 h-10 rounded-full flex items-center justify-center transition-colors duration-300">
+                        <i class="fab fa-twitter"></i>
+                    </a>
+                    <a href="#" class="bg-gray-700 hover:bg-gray-600 w-10 h-10 rounded-full flex items-center justify-center transition-colors duration-300">
+                        <i class="fab fa-linkedin-in"></i>
+                    </a>
+                    <a href="#" class="bg-gray-700 hover:bg-gray-600 w-10 h-10 rounded-full flex items-center justify-center transition-colors duration-300">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                    <a href="#" class="bg-gray-700 hover:bg-gray-600 w-10 h-10 rounded-full flex items-center justify-center transition-colors duration-300">
+                        <i class="fab fa-facebook-f"></i>
+                    </a>
+                </div>
+            </div>
+            
+            <div class="card p-8">
+                <h3 class="text-xl font-semibold mb-6">Send Us a Message</h3>
+                <form>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                        <div>
+                            <label for="name" class="block text-sm font-medium text-gray-300 mb-2">Name</label>
+                            <input type="text" id="name" class="bg-gray-700 border border-gray-600 text-white text-sm rounded-lg focus:ring-indigo-500 focus:border-indigo-500 block w-full p-2.5 placeholder-gray-400" placeholder="Your name">
+                        </div>
+                        <div>
+                            <label for="email" class="block text-sm font-medium text-gray-300 mb-2">Email</label>
+                            <input type="email" id="email" class="bg-gray-700 border border-gray-600 text-white text-sm rounded-lg focus:ring-indigo-500 focus:border-indigo-500 block w-full p-2.5 placeholder-gray-400" placeholder="your@email.com">
+                        </div>
+                    </div>
+                    <div class="mb-6">
+                        <label for="subject" class="block text-sm font-medium text-gray-300 mb-2">Subject</label>
+                        <input type="text" id="subject" class="bg-gray-700 border border-gray-600 text-white text-sm rounded-lg focus:ring-indigo-500 focus:border-indigo-500 block w-full p-2.5 placeholder-gray-400" placeholder="What's this about?">
+                    </div>
+                    <div class="mb-6">
+                        <label for="message" class="block text-sm font-medium text-gray-300 mb-2">Message</label>
+                        <textarea id="message" rows="4" class="bg-gray-700 border border-gray-600 text-white text-sm rounded-lg focus:ring-indigo-500 focus:border-indigo-500 block w-full p-2.5 placeholder-gray-400" placeholder="Your message here..."></textarea>
+                    </div>
+                    <button type="submit" class="btn-gradient text-white px-8 py-3 rounded-full text-sm font-medium w-full">
+                        Send Message
+                    </button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+        <!-- Footer -->
+<footer class="bg-gray-900 border-t border-gray-700">
+    <div class="container mx-auto py-12 px-4 sm:px-6 lg:px-8">
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+            
+            <!-- About -->
+            <div>
+                <h3 class="text-white text-lg font-semibold mb-4">HireByte</h3>
+                <p class="text-gray-400 text-sm leading-relaxed">
+                    Our mission is to bridge the gap between talented students and innovative companies, 
+                    fostering growth and opportunity for the next generation of professionals.
+                </p>
+                
+            </div>
+            
+            <!-- Quick Links -->
+            <div>
+                <h3 class="text-white text-lg font-semibold mb-4">Quick Links</h3>
+                <ul class="space-y-2">
+                    <li><a href="#internships" class="text-gray-400 hover:text-white transition-colors text-sm">Internships</a></li>
+                    <li><a href="./courses.html" class="text-gray-400 hover:text-white transition-colors text-sm">Courses</a></li>
+                    <li><a href="./projects.html" class="text-gray-400 hover:text-white transition-colors text-sm">Projects</a></li>
+                    <li><a href="about.html" class="text-gray-400 hover:text-white transition-colors text-sm">About Us</a></li>
+                </ul>
+            </div>
+
+            <!-- Support -->
+            <div>
+                <h3 class="text-white text-lg font-semibold mb-4">Support</h3>
+                <ul class="space-y-2">
+                    <li><a href="privacy.html" class="text-gray-400 hover:text-white transition-colors text-sm">Privacy Policy</a></li>
+                    <li><a href="terms.html" class="text-gray-400 hover:text-white transition-colors text-sm">Terms of Service</a></li>
+                    <li><a href="cookies.html" class="text-gray-400 hover:text-white transition-colors text-sm">Cookie Policy</a></li>
+                </ul>
+            </div>
+
+            <!-- Follow Us -->
+            <div>
+                <h3 class="text-white text-lg font-semibold mb-4">Follow Us</h3>
+                <div class="flex space-x-4">
+                    <a href="#" class="text-gray-400 hover:text-indigo-400 transition-colors">
+                        <i data-lucide="facebook" class="w-5 h-5"></i>
+                    </a>
+                    <a href="#" class="text-gray-400 hover:text-indigo-400 transition-colors">
+                        <i data-lucide="twitter" class="fab fa-twitter"></i>
+                    </a>
+                    <a href="#" class="text-gray-400 hover:text-indigo-400 transition-colors">
+                        <i data-lucide="linkedin" class="w-5 h-5"></i>
+                    </a>
+                    <a href="#" class="text-gray-400 hover:text-indigo-400 transition-colors">
+                        <i data-lucide="instagram" class="w-5 h-5"></i>
+                    </a>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Bottom Bar -->
+        <div class="mt-8 border-t border-gray-700 pt-6 flex flex-col sm:flex-row justify-between items-center text-gray-500 text-sm">
+            <p>&copy; 2024 HireByte. All rights reserved.</p>
+            <p class="mt-2 sm:mt-0">Made with ❤️ for students and companies.</p>
+        </div>
+    </div>
+</footer>
+
+
+    </div>
+
+    <!-- Modals -->
+    <div id="modal-container" class="hidden fixed inset-0 z-50 flex items-center justify-center modal-backdrop">
+        <!-- Login Modal -->
+        <div id="login-modal" class="hidden bg-gray-800 rounded-lg shadow-xl p-8 w-full max-w-md">
+            <h2 class="text-2xl font-bold text-white mb-6 text-center">Login to HireByte</h2>
+            <form id="login-form">
+                <div class="mb-4">
+                    <label for="login-email" class="block text-sm font-medium text-gray-300 mb-1">Email</label>
+                    <input type="email" id="login-email" class="form-input w-full rounded-md" required>
+                </div>
+                <div class="mb-6">
+                    <label for="login-password" class="block text-sm font-medium text-gray-300 mb-1">Password</label>
+                    <input type="password" id="login-password" class="form-input w-full rounded-md" required>
+                </div>
+                <p id="login-error" class="text-red-400 text-sm mb-4 hidden"></p>
+                <button type="submit" class="btn-primary w-full py-2 rounded-md font-semibold">Login</button>
+            </form>
+            <button class="modal-close absolute top-4 right-4 text-gray-400 hover:text-white">
+                <i data-lucide="x"></i>
+            </button>
+        </div>
+
+        <!-- Register Modal -->
+        <div id="register-modal" class="hidden bg-gray-800 rounded-lg shadow-xl p-8 w-full max-w-md">
+            <h2 class="text-2xl font-bold text-white mb-6 text-center">Join HireByte</h2>
+            <form id="register-form">
+                <div class="mb-4">
+                    <label for="register-email" class="block text-sm font-medium text-gray-300 mb-1">Email</label>
+                    <input type="email" id="register-email" class="form-input w-full rounded-md" required>
+                </div>
+                <div class="mb-4">
+                    <label for="register-password" class="block text-sm font-medium text-gray-300 mb-1">Password</label>
+                    <input type="password" id="register-password" class="form-input w-full rounded-md" required>
+                </div>
+                <div class="mb-6">
+                    <label class="block text-sm font-medium text-gray-300 mb-2">Register as a...</label>
+                    <div class="flex space-x-4">
+                        <label class="flex items-center">
+                            <input type="radio" name="role" value="student" class="form-radio text-indigo-500" checked>
+                            <span class="ml-2 text-gray-300">Student</span>
+                        </label>
+                        <label class="flex items-center">
+                            <input type="radio" name="role" value="portal" class="form-radio text-indigo-500">
+                            <span class="ml-2 text-gray-300">Job Portal</span>
+                        </label>
+                    </div>
+                </div>
+                <p id="register-error" class="text-red-400 text-sm mb-4 hidden"></p>
+                <button type="submit" class="btn-primary w-full py-2 rounded-md font-semibold">Create Account</button>
+            </form>
+            <button class="modal-close absolute top-4 right-4 text-gray-400 hover:text-white">
+                <i data-lucide="x"></i>
+            </button>
+        </div>
+
+        <!-- Add Listing Modal -->
+        <div id="add-listing-modal" class="hidden bg-gray-800 rounded-lg shadow-xl p-8 w-full max-w-lg">
+            <h2 class="text-2xl font-bold text-white mb-6 text-center">Post a New Listing</h2>
+            <form id="add-listing-form">
+                <div class="mb-4">
+                    <label for="listing-title" class="block text-sm font-medium text-gray-300 mb-1">Title</label>
+                    <input type="text" id="listing-title" class="form-input w-full rounded-md" required>
+                </div>
+                <div class="mb-4">
+                    <label for="listing-company" class="block text-sm font-medium text-gray-300 mb-1">Company
+                        Name</label>
+                    <input type="text" id="listing-company" class="form-input w-full rounded-md" required>
+                </div>
+                <div class="mb-4">
+                    <label for="listing-description"
+                        class="block text-sm font-medium text-gray-300 mb-1">Description</label>
+                    <textarea id="listing-description" rows="4" class="form-input w-full rounded-md"
+                        required></textarea>
+                </div>
+                <div class="mb-6">
+                    <label for="listing-type" class="block text-sm font-medium text-gray-300 mb-1">Listing Type</label>
+                    <select id="listing-type" class="form-input w-full rounded-md">
+                        <option value="internships">Internship</option>
+                        <option value="projects">Project</option>
+                        <option value="courses">Course</option>
+                    </select>
+                </div>
+                <p id="listing-error" class="text-red-400 text-sm mb-4 hidden"></p>
+                <button type="submit" class="btn-primary w-full py-2 rounded-md font-semibold">Post Listing</button>
+            </form>
+            <button class="modal-close absolute top-4 right-4 text-gray-400 hover:text-white">
+                <i data-lucide="x"></i>
+            </button>
+        </div>
+    </div>
+
+    <!-- Message Box -->
+    <div id="message-box" class="hidden fixed bottom-5 right-5 bg-green-500 text-white py-3 px-5 rounded-lg shadow-lg">
+        <p id="message-text"></p>
+    </div>
+
+
+    <!-- Firebase SDKs -->
+    <script type="module">
+        // Import Firebase modules
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+        import { getAuth, setPersistence, browserLocalPersistence, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+        import { getFirestore, doc, setDoc, getDoc, collection, addDoc, getDocs, query, where } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+
+        // --- Firebase Configuration ---
+        // IMPORTANT: Replace with your actual Firebase project configuration
+        const firebaseConfig = {
+            apiKey: "YOUR_API_KEY",
+            authDomain: "YOUR_AUTH_DOMAIN",
+            projectId: "YOUR_PROJECT_ID",
+            storageBucket: "YOUR_STORAGE_BUCKET",
+            messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
+            appId: "YOUR_APP_ID"
+        };
+
+        // --- App Initialization ---
+        let app, auth, db;
+        try {
+            app = initializeApp(firebaseConfig);
+            auth = getAuth(app);
+            db = getFirestore(app);
+            // This will keep the user signed in across browser sessions
+            await setPersistence(auth, browserLocalPersistence);
+            console.log("Firebase initialized successfully.");
+        } catch (error) {
+            console.error("Firebase initialization failed:", error);
+            showMessage("Error: Could not connect to services. Please add your Firebase config.", "error");
+        }
+
+        // --- UI Element Selectors ---
+        const ui = {
+            modalContainer: document.getElementById('modal-container'),
+            loginModal: document.getElementById('login-modal'),
+            registerModal: document.getElementById('register-modal'),
+            addListingModal: document.getElementById('add-listing-modal'),
+            authButtons: document.getElementById('auth-buttons'),
+            userDashboard: document.getElementById('user-dashboard'),
+            userEmail: document.getElementById('user-email'),
+            dashboardLink: document.getElementById('dashboard-link'),
+            mobileAuthButtons: document.getElementById('mobile-auth-buttons'),
+            mobileUserDashboard: document.getElementById('mobile-user-dashboard'),
+            mobileUserEmail: document.getElementById('mobile-user-email'),
+            mobileDashboardLink: document.getElementById('mobile-dashboard-link'),
+            internshipList: document.getElementById('internship-list'),
+            messageBox: document.getElementById('message-box'),
+            messageText: document.getElementById('message-text'),
+            mobileMenu: document.getElementById('mobile-menu'),
+            statsSection: document.getElementById('stats'),
+            browseInternshipsCta: document.getElementById('browse-internships-cta'),
+        };
+
+        // --- Modal Management ---
+        const openModal = (modal) => {
+            ui.modalContainer.classList.remove('hidden');
+            modal.classList.remove('hidden');
+        };
+
+        const closeModal = () => {
+            ui.modalContainer.classList.add('hidden');
+            ui.loginModal.classList.add('hidden');
+            ui.registerModal.classList.add('hidden');
+            ui.addListingModal.classList.add('hidden');
+            document.getElementById('login-error').classList.add('hidden');
+            document.getElementById('register-error').classList.add('hidden');
+            document.getElementById('listing-error').classList.add('hidden');
+        };
+
+        // --- Event Listeners for Modals and Mobile Menu ---
+        ui.browseInternshipsCta.addEventListener('click', () => openModal(ui.registerModal));
+        document.getElementById('login-btn').addEventListener('click', () => openModal(ui.loginModal));
+        document.getElementById('mobile-login-btn').addEventListener('click', () => openModal(ui.loginModal));
+        document.getElementById('register-btn').addEventListener('click', () => openModal(ui.registerModal));
+        document.getElementById('mobile-register-btn').addEventListener('click', () => openModal(ui.registerModal));
+        document.getElementById('post-job-cta').addEventListener('click', async () => {
+            if (auth.currentUser) {
+                const userDoc = await getDoc(doc(db, "users", auth.currentUser.uid));
+                if (userDoc.exists() && userDoc.data().role === 'portal') {
+                    openModal(ui.addListingModal);
+                } else {
+                    showMessage("Only Job Portals can post new listings.", "error");
+                }
+            } else {
+                showMessage("Please log in as a Job Portal to post a listing.", "info");
+                openModal(ui.loginModal);
+            }
+        });
+
+        ui.modalContainer.addEventListener('click', (e) => {
+            if (e.target === ui.modalContainer || e.target.closest('.modal-close')) {
+                closeModal();
+            }
+        });
+
+        document.getElementById('mobile-menu-button').addEventListener('click', () => {
+            ui.mobileMenu.classList.toggle('hidden');
+        });
+
+        // --- Authentication Logic ---
+        document.getElementById('login-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const email = document.getElementById('login-email').value;
+            const password = document.getElementById('login-password').value;
+            const errorP = document.getElementById('login-error');
+
+            try {
+                await signInWithEmailAndPassword(auth, email, password);
+                closeModal();
+                showMessage("Logged in successfully!", "success");
+            } catch (error) {
+                errorP.textContent = error.message;
+                errorP.classList.remove('hidden');
+            }
+        });
+
+        document.getElementById('register-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const email = document.getElementById('register-email').value;
+            const password = document.getElementById('register-password').value;
+            const role = document.querySelector('input[name="role"]:checked').value;
+            const errorP = document.getElementById('register-error');
+
+            try {
+                const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+                const user = userCredential.user;
+                await setDoc(doc(db, "users", user.uid), {
+                    email: user.email,
+                    role: role
+                });
+                closeModal();
+                showMessage("Account created successfully!", "success");
+            } catch (error) {
+                errorP.textContent = error.message;
+                errorP.classList.remove('hidden');
+            }
+        });
+
+        const logout = async () => {
+            try {
+                await signOut(auth);
+                showMessage("Logged out successfully.", "success");
+            } catch (error) {
+                console.error("Logout failed:", error);
+                showMessage("Logout failed. Please try again.", "error");
+            }
+        };
+        document.getElementById('logout-btn').addEventListener('click', logout);
+        document.getElementById('mobile-logout-btn').addEventListener('click', logout);
+
+        // --- Auth State Change Handler ---
+        onAuthStateChanged(auth, async (user) => {
+            if (user) {
+                const userDoc = await getDoc(doc(db, "users", user.uid));
+                const userData = userDoc.exists() ? userDoc.data() : { role: 'student', email: user.email };
+                const dashboardUrl = userData.role === 'student' ? './student-profile.html' : './job-portal.html';
+
+                ui.authButtons.classList.add('hidden');
+                ui.userDashboard.classList.remove('hidden');
+                ui.userDashboard.classList.add('flex');
+                ui.userEmail.textContent = user.email;
+                ui.dashboardLink.href = dashboardUrl;
+
+                ui.mobileAuthButtons.classList.add('hidden');
+                ui.mobileUserDashboard.classList.remove('hidden');
+                ui.mobileUserDashboard.classList.add('flex');
+                ui.mobileUserEmail.textContent = user.email;
+                ui.mobileDashboardLink.href = dashboardUrl;
+
+                document.getElementById('post-job-cta').style.display = userData.role === 'portal' ? 'inline-block' : 'none';
+            } else {
+                ui.authButtons.classList.remove('hidden');
+                ui.userDashboard.classList.add('hidden');
+                ui.userDashboard.classList.remove('flex');
+
+                ui.mobileAuthButtons.classList.remove('hidden');
+                ui.mobileUserDashboard.classList.add('hidden');
+                ui.mobileUserDashboard.classList.remove('flex');
+
+                document.getElementById('post-job-cta').style.display = 'none';
+            }
+        });
+
+        // --- Firestore Data Handling ---
+        const createListingCard = (listing) => {
+            const card = document.createElement('div');
+            card.className = 'card rounded-lg overflow-hidden p-6 flex flex-col';
+            card.innerHTML = `
+                <div class="flex-grow">
+                    <div class="flex items-center justify-between mb-2">
+                        <h3 class="text-xl font-bold text-white">${listing.title}</h3>
+                        <span class="text-xs font-semibold inline-block py-1 px-2 uppercase rounded-full text-indigo-600 bg-indigo-200">${listing.type.slice(0, -1)}</span>
+                    </div>
+                    <p class="text-indigo-300 font-semibold mb-3">${listing.company}</p>
+                    <p class="text-gray-400 text-sm">${listing.description.substring(0, 120)}...</p>
+                </div>
+                <div class="mt-6">
+                    <button data-id="${listing.id}" class="apply-btn w-full btn-primary py-2 rounded-md font-semibold">View Details</button>
+                </div>
+            `;
+            card.querySelector('.apply-btn').addEventListener('click', () => {
+                showMessage(`Viewing details for ${listing.title}. Application logic to be implemented.`, 'info');
+            });
+            return card;
+        };
+
+        const fetchInternshipListings = async () => {
+            try {
+                const list = ui.internshipList;
+                list.innerHTML = '<p class="text-gray-400 col-span-full text-center">Loading...</p>';
+                const q = query(collection(db, "listings"), where("type", "==", "internships"));
+                const querySnapshot = await getDocs(q);
+
+                list.innerHTML = '';
+                if (querySnapshot.empty) {
+                    list.innerHTML = `<p class="text-gray-400 col-span-full text-center">No internships available at the moment.</p>`;
+                } else {
+                    querySnapshot.forEach((doc) => {
+                        list.appendChild(createListingCard({ id: doc.id, ...doc.data() }));
+                    });
+                }
+            } catch (error) {
+                console.error("Error fetching listings: ", error);
+                ui.internshipList.innerHTML = `<p class="text-red-400 col-span-full text-center">Could not load listings.</p>`;
+            }
+        };
+
+        document.getElementById('add-listing-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const user = auth.currentUser;
+            if (!user) {
+                showMessage("You must be logged in.", "error");
+                return;
+            }
+
+            const title = document.getElementById('listing-title').value;
+            const company = document.getElementById('listing-company').value;
+            const description = document.getElementById('listing-description').value;
+            const type = document.getElementById('listing-type').value;
+            const errorP = document.getElementById('listing-error');
+
+            try {
+                await addDoc(collection(db, "listings"), {
+                    title, company, description, type,
+                    postedBy: user.uid,
+                    createdAt: new Date()
+                });
+                closeModal();
+                showMessage("Listing posted successfully!", "success");
+                if (type === 'internships') fetchInternshipListings();
+            } catch (error) {
+                console.error("Error adding document: ", error);
+                errorP.textContent = "Failed to post listing. Please try again.";
+                errorP.classList.remove('hidden');
+            }
+        });
+
+       
+
+       
+
+        // --- Utility Functions ---
+        const showMessage = (message, type = "success") => {
+            ui.messageText.textContent = message;
+            ui.messageBox.className = 'fixed bottom-5 right-5 text-white py-3 px-5 rounded-lg shadow-lg';
+            if (type === "success") ui.messageBox.classList.add('bg-green-500');
+            else if (type === "error") ui.messageBox.classList.add('bg-red-500');
+            else ui.messageBox.classList.add('bg-blue-500');
+            ui.messageBox.classList.remove('hidden');
+            setTimeout(() => ui.messageBox.classList.add('hidden'), 3000);
+        };
+
+        // --- Initial Load ---
+        document.addEventListener('DOMContentLoaded', () => {
+            lucide.createIcons();
+            if (ui.statsSection) observer.observe(ui.statsSection);
+            if (db) fetchInternshipListings();
+        });
+     // --- Animated Counter Logic ---
+       // Function to animate count
+function animateCount(el, target) {
+    let start = 0;
+    const duration = 2000; // animation time in ms
+    const stepTime = Math.abs(Math.floor(duration / target));
+
+    const timer = setInterval(() => {
+        start++;
+        el.textContent = start;
+        if (start >= target) clearInterval(timer);
+    }, stepTime);
+}
+
+// Trigger animation when section is visible
+const counters = document.querySelectorAll(".counter");
+let triggered = false;
+
+const observer = new IntersectionObserver(entries => {
+    if (entries[0].isIntersecting && !triggered) {
+        triggered = true;
+        counters.forEach(counter => {
+            const target = +counter.getAttribute("data-target");
+            animateCount(counter, target);
+        });
+    }
+}, { threshold: 0.5 });
+
+observer.observe(document.querySelector("#stats"));
+        
+
+    </script>
+</body>
+
+</html>

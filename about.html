@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us - HireByte</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #111827;
+            color: #d1d5db;
+        }
+        .team-card {
+            background-color: #1f2937;
+            border: 1px solid #374151;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .team-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 0 20px rgba(79, 70, 229, 0.3);
+        }
+        .btn-primary {
+            background-color: #4f46e5;
+            color: white;
+            transition: background-color 0.3s;
+        }
+        .btn-primary:hover {
+            background-color: #4338ca;
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <!-- App Container -->
+    <div id="app" class="min-h-screen flex flex-col">
+
+        <!-- Header / Navbar -->
+        <header class="bg-gray-900/80 backdrop-blur-sm sticky top-0 z-40 shadow-md shadow-indigo-500/10">
+            <nav class="container mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex items-center justify-between h-16">
+                    <a href="./index.html" class="flex-shrink-0 text-white text-2xl font-bold flex items-center">
+                        <i data-lucide="briefcase" class="mr-2 text-indigo-400"></i>
+                        HireByte
+                    </a>
+                    <a href="./index.html" class="text-gray-300 bg-transparent hover:bg-indigo-500 hover:text-white font-medium py-2 px-4 border border-indigo-500 rounded-lg transition-all duration-300">
+                        <i data-lucide="arrow-left" class="inline-block mr-2 -mt-1"></i>Back to Home
+                    </a>
+                </div>
+            </nav>
+        </header>
+
+        <!-- Main Content -->
+        <main class="flex-grow container mx-auto px-4 sm:px-6 lg:px-8 py-12">
+            <h1 class="text-4xl sm:text-5xl font-extrabold text-white tracking-tight text-center mb-12">
+                About <span class="text-indigo-400">HireByte</span>
+            </h1>
+
+            <section class="mb-12">
+                <h2 class="text-3xl font-bold text-white mb-4">Our Mission</h2>
+                <p class="text-gray-400">
+                    At HireByte, our mission is to bridge the gap between talented students and innovative companies, fostering growth and opportunity for the next generation of professionals.
+                </p>
+            </section>
+
+            <section class="mb-12">
+                <h2 class="text-3xl font-bold text-white mb-4">Our Vision</h2>
+                <p class="text-gray-400">
+                    We envision a world where every student has access to meaningful internship opportunities that empower them to build their careers and contribute to the workforce.
+                </p>
+            </section>
+
+            <section class="mb-12">
+                <h2 class="text-3xl font-bold text-white mb-4">Our Values</h2>
+                <ul class="list-disc list-inside text-gray-400">
+                    <li>Integrity: We uphold the highest standards of integrity in all our actions.</li>
+                    <li>Innovation: We strive to innovate and improve our services continuously.</li>
+                    <li>Collaboration: We believe in the power of teamwork and collaboration.</li>
+                    <li>Empowerment: We empower students to take charge of their career paths.</li>
+                </ul>
+            </section>
+
+            <section>
+                <h2 class="text-3xl font-bold text-white mb-4">Meet Our Team</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <!-- Team Member 1 -->
+                    <div class="team-card rounded-lg p-6 text-center flex flex-col items-center">
+                        <img src="https://placehold.co/100x100/1f2937/d1d5db?text=AP" alt="Team Member" class="w-24 h-24 rounded-full mb-4">
+                        <h3 class="text-xl font-bold text-white">Aarav Patel</h3>
+                        <p class="text-gray-400">Co-Founder & CEO</p>
+                    </div>
+                    <!-- Team Member 2 -->
+                    <div class="team-card rounded-lg p-6 text-center flex flex-col items-center">
+                        <img src="https://placehold.co/100x100/1f2937/d1d5db?text=PS" alt="Team Member" class="w-24 h-24 rounded-full mb-4">
+                        <h3 class="text-xl font-bold text-white">Priya Sharma</h3>
+                        <p class="text-gray-400">Co-Founder & CTO</p>
+                    </div>
+                    <!-- Team Member 3 -->
+                    <div class="team-card rounded-lg p-6 text-center flex flex-col items-center">
+                        <img src="https://placehold.co/100x100/1f2937/d1d5db?text=RK" alt="Team Member" class="w-24 h-24 rounded-full mb-4">
+                        <h3 class="text-xl font-bold text-white">Rohan Kumar</h3>
+                        <p class="text-gray-400">Head of Marketing</p>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- Footer -->
+        <footer class="bg-gray-900 mt-12">
+            <div class="container mx-auto py-6 px-4 sm:px-6 lg:px-8 text-center text-gray-400">
+                <p>&copy; 2024 HireByte. All rights reserved.</p>
+            </div>
+        </footer>
+
+    </div>
+    
+    <script>
+        // Render Lucide icons on page load
+        document.addEventListener('DOMContentLoaded', () => {
+            lucide.createIcons();
+        });
+    </script>
+</body>
+</html>

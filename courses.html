@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Courses - HireByte</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #111827;
+            color: #d1d5db;
+        }
+        .card {
+            background-color: #1f2937;
+            border: 1px solid #374151;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgba(79, 70, 229, 0.2), 0 4px 6px -2px rgba(79, 70, 229, 0.1);
+        }
+        .btn-primary {
+            background-color: #4f46e5;
+            color: white;
+            transition: background-color 0.3s;
+        }
+        .btn-primary:hover {
+            background-color: #4338ca;
+        }
+        .modal-backdrop {
+            background-color: rgba(0, 0, 0, 0.7);
+        }
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body class="antialiased">
+    <div class="min-h-screen flex flex-col">
+        <!-- Header -->
+        <header class="bg-gray-900/80 backdrop-blur-sm sticky top-0 z-40 shadow-md shadow-indigo-500/10">
+            <nav class="container mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex items-center justify-between h-16">
+                    <a href="./index.html" class="flex-shrink-0 text-white text-2xl font-bold flex items-center">
+                        <i data-lucide="briefcase" class="mr-2 text-indigo-400"></i>
+                        HireByte
+                    </a>
+                    <a href="./index.html" class="text-gray-300 bg-transparent hover:bg-indigo-500 hover:text-white font-medium py-2 px-4 border border-indigo-500 rounded-lg transition-all duration-300">
+                        <i data-lucide="arrow-left" class="inline-block mr-2 -mt-1"></i>Back to Home
+                    </a>
+                </div>
+            </nav>
+        </header>
+
+        <!-- Main Content -->
+        <main class="flex-grow container mx-auto px-4 sm:px-6 lg:px-8 py-12">
+            <h1 class="text-4xl sm:text-5xl font-extrabold text-white tracking-tight text-center mb-12">
+                Explore All <span class="text-indigo-400">Skill-Up Courses</span>
+            </h1>
+
+            <div id="course-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+                <!-- Course Cards -->
+                <div class="card rounded-lg overflow-hidden flex flex-col">
+                   <img src="https://placehold.co/600x400/1f2937/d1d5db?text=Software+Dev" alt="Software Development" class="w-full h-48 object-cover">
+                   <div class="p-6 flex-grow flex flex-col">
+                       <h3 class="text-xl font-bold text-white">Software Development</h3>
+                       <p class="text-gray-400 text-sm mt-2 flex-grow">Learn to build robust applications from scratch with our comprehensive software development courses.</p>
+                       <button class="enroll-btn w-full btn-primary py-2 rounded-md font-semibold mt-4">Enroll Now</button>
+                   </div>
+                </div>
+                <div class="card rounded-lg overflow-hidden flex flex-col">
+                   <img src="https://placehold.co/600x400/1f2937/d1d5db?text=DSA" alt="Data Structures & Algorithms" class="w-full h-48 object-cover">
+                   <div class="p-6 flex-grow flex flex-col">
+                       <h3 class="text-xl font-bold text-white">Data Structures & Algo</h3>
+                       <p class="text-gray-400 text-sm mt-2 flex-grow">Master the fundamentals of DSA to excel in technical interviews and build efficient software.</p>
+                       <button class="enroll-btn w-full btn-primary py-2 rounded-md font-semibold mt-4">Enroll Now</button>
+                   </div>
+                </div>
+                <div class="card rounded-lg overflow-hidden flex flex-col">
+                   <img src="https://placehold.co/600x400/1f2937/d1d5db?text=Data+Science" alt="Data Science" class="w-full h-48 object-cover">
+                   <div class="p-6 flex-grow flex flex-col">
+                       <h3 class="text-xl font-bold text-white">Data Science</h3>
+                       <p class="text-gray-400 text-sm mt-2 flex-grow">Dive into the world of data, machine learning, and AI to uncover valuable insights.</p>
+                       <button class="enroll-btn w-full btn-primary py-2 rounded-md font-semibold mt-4">Enroll Now</button>
+                   </div>
+                </div>
+                <div class="card rounded-lg overflow-hidden flex flex-col">
+                   <img src="https://placehold.co/600x400/1f2937/d1d5db?text=Data+Analyst" alt="Data Analyst" class="w-full h-48 object-cover">
+                   <div class="p-6 flex-grow flex flex-col">
+                       <h3 class="text-xl font-bold text-white">Data Analyst</h3>
+                       <p class="text-gray-400 text-sm mt-2 flex-grow">Learn to interpret data, create visualizations, and help businesses make better decisions.</p>
+                       <button class="enroll-btn w-full btn-primary py-2 rounded-md font-semibold mt-4">Enroll Now</button>
+                   </div>
+                </div>
+                <div class="card rounded-lg overflow-hidden flex flex-col">
+                   <img src="https://placehold.co/600x400/1f2937/d1d5db?text=UI/UX" alt="UI/UX Design" class="w-full h-48 object-cover">
+                   <div class="p-6 flex-grow flex flex-col">
+                       <h3 class="text-xl font-bold text-white">UI/UX Design</h3>
+                       <p class="text-gray-400 text-sm mt-2 flex-grow">Create beautiful, intuitive, and user-friendly interfaces for web and mobile applications.</p>
+                       <button class="enroll-btn w-full btn-primary py-2 rounded-md font-semibold mt-4">Enroll Now</button>
+                   </div>
+                </div>
+                <div class="card rounded-lg overflow-hidden flex flex-col">
+                   <img src="https://placehold.co/600x400/1f2937/d1d5db?text=DevOps" alt="DevOps" class="w-full h-48 object-cover">
+                   <div class="p-6 flex-grow flex flex-col">
+                       <h3 class="text-xl font-bold text-white">DevOps</h3>
+                       <p class="text-gray-400 text-sm mt-2 flex-grow">Learn the practices of DevOps to automate and streamline the software development lifecycle.</p>
+                       <button class="enroll-btn w-full btn-primary py-2 rounded-md font-semibold mt-4">Enroll Now</button>
+                   </div>
+                </div>
+                 <div class="card rounded-lg overflow-hidden flex flex-col">
+                   <img src="https://placehold.co/600x400/1f2937/d1d5db?text=Machine+Learning" alt="Machine Learning" class="w-full h-48 object-cover">
+                   <div class="p-6 flex-grow flex flex-col">
+                       <h3 class="text-xl font-bold text-white">Machine Learning</h3>
+                       <p class="text-gray-400 text-sm mt-2 flex-grow">Explore algorithms and statistical models to enable computer systems to learn from data.</p>
+                       <button class="enroll-btn w-full btn-primary py-2 rounded-md font-semibold mt-4">Enroll Now</button>
+                   </div>
+                </div>
+                 <div class="card rounded-lg overflow-hidden flex flex-col">
+                   <img src="https://placehold.co/600x400/1f2937/d1d5db?text=Cybersecurity" alt="Cybersecurity" class="w-full h-48 object-cover">
+                   <div class="p-6 flex-grow flex flex-col">
+                       <h3 class="text-xl font-bold text-white">Cybersecurity</h3>
+                       <p class="text-gray-400 text-sm mt-2 flex-grow">Learn to protect computer systems and networks from information disclosure and theft.</p>
+                       <button class="enroll-btn w-full btn-primary py-2 rounded-md font-semibold mt-4">Enroll Now</button>
+                   </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- Footer -->
+        <footer class="bg-gray-900 border-t border-gray-700 mt-12">
+            <div class="container mx-auto py-6 px-4 sm:px-6 lg:px-8 text-center text-gray-400">
+                <p>&copy; 2024 HireByte. All rights reserved.</p>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Enrollment Modal -->
+    <div id="enroll-modal-container" class="hidden fixed inset-0 z-50 flex items-center justify-center modal-backdrop">
+        <div id="enroll-modal" class="bg-gray-800 rounded-lg shadow-xl p-8 w-full max-w-md text-center">
+            <i data-lucide="check-circle" class="w-16 h-16 text-green-500 mx-auto mb-4"></i>
+            <h2 class="text-2xl font-bold text-white mb-4">Successfully Enrolled!</h2>
+            <p class="text-gray-400 mb-2">You are now enrolled in the</p>
+            <p id="enrolled-course-name" class="font-bold text-indigo-400 text-lg mb-6"></p>
+            <p class="text-gray-400 text-sm mb-6">You can now access all the course materials, including videos, projects, and assessments from your student dashboard.</p>
+            <button id="close-enroll-modal" class="btn-primary w-full py-2 rounded-md font-semibold">Start Learning</button>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            lucide.createIcons();
+
+            const enrollModalContainer = document.getElementById('enroll-modal-container');
+            const enrollModal = document.getElementById('enroll-modal');
+            const enrolledCourseName = document.getElementById('enrolled-course-name');
+            const closeEnrollModalBtn = document.getElementById('close-enroll-modal');
+            const enrollBtns = document.querySelectorAll('.enroll-btn');
+
+            const openModal = () => {
+                enrollModalContainer.classList.remove('hidden');
+            };
+
+            const closeModal = () => {
+                enrollModalContainer.classList.add('hidden');
+            };
+
+            enrollBtns.forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    const card = e.target.closest('.card');
+                    const courseTitle = card.querySelector('h3').innerText;
+                    enrolledCourseName.innerText = courseTitle;
+                    openModal();
+                });
+            });
+
+            closeEnrollModalBtn.addEventListener('click', closeModal);
+            enrollModalContainer.addEventListener('click', (e) => {
+                if (e.target === enrollModalContainer) {
+                    closeModal();
+                }
+            });
+        });
+    </script>
+</body>
+</html>

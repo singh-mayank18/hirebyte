@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Projects - HireByte</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #111827;
+            color: #d1d5db;
+        }
+        .project-card {
+             background-color: #1f2937;
+             border: 1px solid #374151;
+             transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s;
+        }
+        .project-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 0 20px rgba(79, 70, 229, 0.3);
+            border-color: #4f46e5;
+        }
+         .btn-primary {
+            background-color: #4f46e5;
+            color: white;
+            transition: background-color 0.3s;
+        }
+        .btn-primary:hover {
+            background-color: #4338ca;
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <!-- App Container -->
+    <div id="app" class="min-h-screen flex flex-col">
+
+        <!-- Header / Navbar -->
+        <header class="bg-gray-900/80 backdrop-blur-sm sticky top-0 z-40 shadow-md shadow-indigo-500/10">
+            <nav class="container mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex items-center justify-between h-16">
+                    <a href="./index.html" class="flex-shrink-0 text-white text-2xl font-bold flex items-center">
+                        <i data-lucide="briefcase" class="mr-2 text-indigo-400"></i>
+                        HireByte
+                    </a>
+                    <a href="./index.html" class="text-gray-300 bg-transparent hover:bg-indigo-500 hover:text-white font-medium py-2 px-4 border border-indigo-500 rounded-lg transition-all duration-300">
+                        <i data-lucide="arrow-left" class="inline-block mr-2 -mt-1"></i>Back to Home
+                    </a>
+                </div>
+            </nav>
+        </header>
+
+        <!-- Main Content -->
+        <main class="flex-grow container mx-auto px-4 sm:px-6 lg:px-8 py-12">
+            <h1 class="text-4xl sm:text-5xl font-extrabold text-white tracking-tight text-center mb-12">
+                Explore Our <span class="text-indigo-400">Real-Life Projects</span>
+            </h1>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Project Card 1 -->
+                <div class="project-card rounded-lg p-6 text-center flex flex-col items-center">
+                    <div class="bg-gray-800 rounded-full p-4 mb-4">
+                       <i data-lucide="shopping-cart" class="w-10 h-10 text-indigo-400"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white">E-commerce Website</h3>
+                    <p class="text-gray-400 text-sm mt-2 flex-grow">Develop a full-featured online store with a product catalog, shopping cart, and payment integration.</p>
+                    <button class="mt-4 w-full btn-primary py-2 rounded-md font-semibold">Start Project</button>
+                </div>
+                <!-- Project Card 2 -->
+                 <div class="project-card rounded-lg p-6 text-center flex flex-col items-center">
+                    <div class="bg-gray-800 rounded-full p-4 mb-4">
+                       <i data-lucide="line-chart" class="w-10 h-10 text-indigo-400"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white">Stock Market Analyzer</h3>
+                    <p class="text-gray-400 text-sm mt-2 flex-grow">Build a data-driven dashboard to track stock prices, visualize trends, and analyze market data using APIs.</p>
+                     <button class="mt-4 w-full btn-primary py-2 rounded-md font-semibold">Start Project</button>
+                </div>
+                <!-- Project Card 3 -->
+                 <div class="project-card rounded-lg p-6 text-center flex flex-col items-center">
+                    <div class="bg-gray-800 rounded-full p-4 mb-4">
+                       <i data-lucide="message-square" class="w-10 h-10 text-indigo-400"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white">Real-time Chat App</h3>
+                    <p class="text-gray-400 text-sm mt-2 flex-grow">Create a responsive chat application with real-time messaging, user authentication, and multiple chat rooms.</p>
+                     <button class="mt-4 w-full btn-primary py-2 rounded-md font-semibold">Start Project</button>
+                </div>
+                <!-- Project Card 4 -->
+                <div class="project-card rounded-lg p-6 text-center flex flex-col items-center">
+                    <div class="bg-gray-800 rounded-full p-4 mb-4">
+                       <i data-lucide="file-text" class="w-10 h-10 text-indigo-400"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white">Blog Platform (CMS)</h3>
+                    <p class="text-gray-400 text-sm mt-2 flex-grow">Build a content management system for a blog where users can create, edit, and delete posts.</p>
+                    <button class="mt-4 w-full btn-primary py-2 rounded-md font-semibold">Start Project</button>
+                </div>
+                <!-- Project Card 5 -->
+                 <div class="project-card rounded-lg p-6 text-center flex flex-col items-center">
+                    <div class="bg-gray-800 rounded-full p-4 mb-4">
+                       <i data-lucide="cloud-sun" class="w-10 h-10 text-indigo-400"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white">Weather Forecast App</h3>
+                    <p class="text-gray-400 text-sm mt-2 flex-grow">Create an application that fetches and displays weather data for any city using a third-party API.</p>
+                     <button class="mt-4 w-full btn-primary py-2 rounded-md font-semibold">Start Project</button>
+                </div>
+                <!-- Project Card 6 -->
+                 <div class="project-card rounded-lg p-6 text-center flex flex-col items-center">
+                    <div class="bg-gray-800 rounded-full p-4 mb-4">
+                       <i data-lucide="clipboard-check" class="w-10 h-10 text-indigo-400"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white">Task Management Tool</h3>
+                    <p class="text-gray-400 text-sm mt-2 flex-grow">Design and build a to-do list application with features like due dates, priorities, and project categories.</p>
+                     <button class="mt-4 w-full btn-primary py-2 rounded-md font-semibold">Start Project</button>
+                </div>
+            </div>
+
+        </main>
+
+        <!-- Footer -->
+        <footer class="bg-gray-900 mt-12">
+            <div class="container mx-auto py-6 px-4 sm:px-6 lg:px-8 text-center text-gray-400">
+                <p>&copy; 2024 HireByte. All rights reserved.</p>
+            </div>
+        </footer>
+
+    </div>
+    
+    <script>
+        // Render Lucide icons on page load
+        document.addEventListener('DOMContentLoaded', () => {
+            lucide.createIcons();
+        });
+    </script>
+</body>
+</html>
